@@ -11,4 +11,8 @@
     <!--END-->
 
     <string name="sign_up_description_text">Enter your name, email id and password, to register with us.</string>
+    <string name="email">Email</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="sign_in_description_text">Enter your email and password to sign in</string>
 </resources>
