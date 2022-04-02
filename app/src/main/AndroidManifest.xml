@@ -10,17 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrelloClone">
         <activity
-            android:name=".SignInActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.TrelloClone.NoActionBar"/>
-        <activity
-            android:name=".SignUpActivity"
+            android:name=".activities.SignInActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TrelloClone.NoActionBar" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SignUpActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TrelloClone.NoActionBar" />
+        <activity
+            android:name=".activities.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TrelloClone.NoActionBar">
@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IntroActivity"
+            android:name=".activities.IntroActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TrelloClone.NoActionBar" />
