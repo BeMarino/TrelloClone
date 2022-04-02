@@ -1,9 +1,10 @@
-package com.benny.trelloclone
+package com.benny.trelloclone.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.widget.Toolbar
+import com.benny.trelloclone.R
 
 class SignInActivity : AppCompatActivity() {
     var sign_in_toolbar: Toolbar? = null

@@ -1,12 +1,13 @@
-package com.benny.trelloclone
+package com.benny.trelloclone.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Button
+import com.benny.trelloclone.R
 
-class IntroActivity : AppCompatActivity() {
+class IntroActivity : BaseActivity() {
 
     var btn_sign_up:Button? = null
     var btn_sign_in:Button? = null
@@ -22,10 +23,10 @@ class IntroActivity : AppCompatActivity() {
         )
 
         btn_sign_up?.setOnClickListener {
-            startActivity(Intent(this,SignUpActivity::class.java))
+            startActivity(Intent(this, SignUpActivity::class.java))
         }
         btn_sign_in?.setOnClickListener {
-            startActivity(Intent(this,SignInActivity::class.java))
+            startActivity(Intent(this, SignInActivity::class.java))
         }
 
     }
