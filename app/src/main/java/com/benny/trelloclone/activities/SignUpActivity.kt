@@ -8,6 +8,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.benny.trelloclone.R
+import com.benny.trelloclone.firebase.FirestoreClass
+import com.benny.trelloclone.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -64,17 +66,12 @@ class SignUpActivity : BaseActivity() {
             showProgressDialog(resources.getString(R.string.please_wait))
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
-                    hideProgressDialog()
                     if (task.isSuccessful) {
                         val firebaseUser: FirebaseUser? = task.result!!.user!!
                         val registeredEmail = firebaseUser!!.email!!
-                        Toast.makeText(
-                            this,
-                            "$name you have successfullky registered your account",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        FirebaseAuth.getInstance().signOut()
-                        finish()
+                        val user = User(firebaseUser.uid, name, registeredEmail)
+                        FirestoreClass().registerUser(this, user)
+
                     } else {
                         Toast.makeText(this, task.exception!!.message, Toast.LENGTH_SHORT).show()
                     }
@@ -103,5 +100,16 @@ class SignUpActivity : BaseActivity() {
                 true
             }
         }
+    }
+
+    fun userRegisteredSuccess() {
+        Toast.makeText(
+            this,
+            "You have successfully registered your account",
+            Toast.LENGTH_LONG
+        ).show()
+        hideProgressDialog()
+        FirebaseAuth.getInstance().signOut()
+        finish()
     }
 }
