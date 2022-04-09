@@ -43,6 +43,26 @@ class SignInActivity : BaseActivity() {
         btn_sign_in.setOnClickListener { signInRegisteredUser() }
     }
 
+    private fun signInRegisteredUser() {
+        val email: String = et_email.text.toString().trim()
+        val password: String = et_password.text.toString().trim()
+
+        if (validateForm(email, password)) {
+            showProgressDialog(resources.getString(R.string.please_wait))
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    hideProgressDialog()
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("Sign_in", "createUserWithEmail:success")
+                        FirestoreClass().signInUser(this)
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("Sign_in", "createUserWithEmail:failure", task.exception)
+                        Toast.makeText(
+                            baseContext, "Authentication failed.",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                     }
                 }
@@ -60,5 +80,29 @@ class SignInActivity : BaseActivity() {
             actionBar.setDisplayHomeAsUpEnabled(true)
         }
         sign_in_toolbar?.setNavigationOnClickListener { onBackPressed() }
+    }
+
+    private fun validateForm(email: String, password: String): Boolean {
+        return when {
+            TextUtils.isEmpty(email) -> {
+                showErrorSnackBar("Please enter an email address")
+                false
+            }
+
+            TextUtils.isEmpty(password) -> {
+                showErrorSnackBar("Please enter password")
+                false
+            }
+            else -> {
+
+                true
+            }
+        }
+    }
+
+    fun signInSuccess(loggedUser: User) {
+        hideProgressDialog()
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }
