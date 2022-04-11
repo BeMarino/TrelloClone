@@ -8,6 +8,7 @@ import android.os.Handler
 import android.view.WindowManager
 import android.widget.TextView
 import com.benny.trelloclone.R
+import com.benny.trelloclone.firebase.FirestoreClass
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,12 +22,21 @@ class SplashActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        val typeface: Typeface = Typeface.createFromAsset(assets,"Montserrat-Regular.ttf")
+        val typeface: Typeface = Typeface.createFromAsset(assets, "Montserrat-Regular.ttf")
         tv_app_name.typeface = typeface
 
         Handler().postDelayed({
-            startActivity(Intent(this, IntroActivity::class.java))
-            finish()
-        },2500)
+
+            var currentUserId = FirestoreClass().getCurrentUserId()
+
+            if (currentUserId.isNotEmpty()) {
+                startActivity(Intent(this, MainActivity::class.java))
+
+            } else {
+                startActivity(Intent(this, IntroActivity::class.java))
+
+            }
+
+        }, 2500)
     }
 }
