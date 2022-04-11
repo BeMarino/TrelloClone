@@ -27,17 +27,22 @@ class FirestoreClass {
     }
 
     fun getCurrentUserId(): String {
-        return FirebaseAuth.getInstance().currentUser!!.uid
+        var currentUser = FirebaseAuth.getInstance().currentUser
+        var currentUserId = ""
+        if (currentUser != null) {
+            currentUserId = currentUser.uid
+        }
+        return currentUserId
     }
 
     fun signInUser(activity: SignInActivity) {
         mFireStore.collection(Constants.USERS).document(getCurrentUserId()).get()
             .addOnSuccessListener { document ->
                 val loggedUser = document.toObject(User::class.java)
-                if(loggedUser!=null)
+                if (loggedUser != null)
                     activity.signInSuccess(loggedUser)
             }.addOnFailureListener { e ->
-            Log.e("SignInUser ", "error during user login")
-        }
+                Log.e("SignInUser ", "error during user login")
+            }
     }
 }
